@@ -41,7 +41,7 @@ User.count({}, function (err, count) {
                 new Car({
                     licensePlate: "KA 04 9870",
                     driver: {
-                        name: "Dino",
+                        name: "Driver 1",
                         address: ""
                     },
                     isPink: false,
