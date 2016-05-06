@@ -1,0 +1,30 @@
+<div ng-show="user.userDetails" class="user-details">
+    <div class="user-info-container section">
+        <div class="user-name">{{user.userDetails.name}}</div>
+        <div class="user-phone-wrapper">
+            <span class="title">Phone:</span>
+            <span class="user-phone">{{user.userDetails.phone}}</span>
+        </div>
+
+        <div class="user-action-container">
+            <a class="btn btn-default action-btn"
+                    ui-sref="user.rides({userId: user.userDetails._id})">My Rides</a>
+        </div>
+    </div>
+
+    <div class="book-ride-form section">
+        <h5>Book A Ride</h5>
+        <form ng-submit="form.$valid && user.bookRide(form)" novalidate class="form-horizontal" name="form">
+            <input name="name" class="form-control" ng-model="user.ride.location.name" placeholder="Pick-up Location Name">
+            <input name="longitude" class="form-control" ng-model="user.ride.location.longitude" placeholder="Pick-up Location Longitude">
+            <input name="latitude" class="form-control" ng-model="user.ride.location.latitude" placeholder="Pick-up Location Latitude">
+            <label>
+                <input type="checkbox" name="hasToBePink" ng-model="user.ride.hasToBePink">
+                Get Me A Pink Car
+            </label>
+            <div class="align-center">
+                <button type="submit" class="btn btn-default submit-btn">Book</button>
+            </div>
+        </form>
+    </div>
+</div>

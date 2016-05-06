@@ -1,0 +1,40 @@
+{
+  "name": "fuber",
+  "version": "1.0.0",
+  "description": "car taxi service",
+  "main": "client/app/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "car",
+    "taxi",
+    "rent"
+  ],
+  "author": "anuraag",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^0.9.0",
+    "body-parser": "~1.5.0",
+    "bower": "^1.4.1",
+    "cookie-parser": "~1.0.1",
+    "compression": "~1.0.1",
+    "ejs": "~0.8.4",
+    "errorhandler": "~1.0.0",
+    "express": "~4.0.0",
+    "lodash": "^3.8.0",
+    "method-override": "~1.0.0",
+    "mongoose": "~3.8.8",
+    "morgan": "~1.6.1",
+    "request": "^2.54.0",
+    "serve-favicon": "~2.3.0"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install",
+    "start": "node server/app.js"
+  },
+  "private": true
+}

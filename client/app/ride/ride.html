@@ -1,0 +1,45 @@
+<div class="ride-details-container container">
+    <h3>Ride Details</h3>
+
+    <div ng-if="ride.rideDetails" class="ride-container section"
+         ng-class="{'ride-on-going': ride.rideDetails.ongoing, 'pink-car': ride.rideDetails.inPinkCar}">
+        <div class="trip-places-wrapper">
+            <div class="trip-start-place">
+                <span class="title">From: </span>
+                <span>{{ride.rideDetails.origin.name}}</span>
+            </div>
+
+            <div class="trip-end-place" ng-if="ride.rideDetails.destination">
+                <span class="title">To: </span>
+                <span>{{ride.rideDetails.destination.name}}</span>
+            </div>
+        </div>
+        <div class="trip-time-wrapper">
+            <span>on</span>
+            <span class="trip-date">{{ride.rideDetails.tripDate}}</span>
+            <span>at</span>
+            <span class="trip-time">{{ride.rideDetails.tripTime}}</span>
+        </div>
+        <div class="trip-cost-wrapper" ng-if="!ride.rideDetails.ongoing">
+            <span class="title">Trip Cost:</span>
+            <i class="fa fa-rupee"></i>
+            <span class="trip-cost">{{ride.rideDetails.tripCost}}</span>
+        </div>
+        <div class="trip-distance-wrapper" ng-if="!ride.rideDetails.ongoing">
+            <span class="title">Distance Travelled:</span>
+            <span class="trip-distance">{{ride.rideDetails.distanceCovered}} kms</span>
+        </div>
+    </div>
+
+    <div class="end-trip-form section" ng-if="ride.rideDetails.ongoing">
+        <h5>End Trip</h5>
+        <form ng-submit="form.$valid && ride.endTrip(form)" novalidate class="form-horizontal" name="form">
+            <input name="name" class="form-control" ng-model="ride.location.name" placeholder="Drop Location Name">
+            <input name="longitude" class="form-control" ng-model="ride.location.longitude" placeholder="Drop Location Longitude">
+            <input name="latitude" class="form-control" ng-model="ride.location.latitude" placeholder="Drop Location Latitude">
+            <div class="align-center">
+                <button type="submit" class="btn btn-default">End</button>
+            </div>
+        </form>
+    </div>
+</div>

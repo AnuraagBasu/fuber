@@ -1,0 +1,43 @@
+<div class="user-container" ng-show="main.showUsers">
+    <div class="user-list-container">
+        <ul class="user-list list">
+            <li class="user-item list-item" ng-repeat="user in main.users">
+                <a ui-sref="user.show({userId: user._id})">
+                    <div class="user-name">{{user.name}}</div>
+                    <div class="user-phone-wrapper">
+                        <span class="title">Phone:</span>
+                        <span class="user-phone">{{user.phone}}</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="car-container" ng-show="main.showCars">
+    <div class="car-list-container">
+        <ul class="car-list list">
+            <li class="car-item list-item" ng-repeat="car in main.cars"
+                ng-class="{'inactive': !car.active, 'on-ride': car.onRide, 'pink-car': car.isPink}">
+                <a ui-sref="car.show({carId: car._id})">
+                    <div class="car-driver-name">{{car.driver.name}}</div>
+                    <div class="car-location-wrapper">
+                        <span class="title">Last Location:</span>
+                        <span class="car-location">{{car.location.coordinates.join(",")}}</span>
+                        <span class="car-location-name">({{car.location.name}})</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <div class="indicators">
+            <div>
+                <i class="on-ride"></i>
+                <span class="indicator-name">On Ride</span>
+            </div>
+
+            <div>
+                <i class="inactive"></i>
+                <span class="indicator-name">Not Active</span>
+            </div>
+        </div>
+    </div>
+</div>

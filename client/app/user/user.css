@@ -1,0 +1,40 @@
+.user-details {
+    padding: 20px;
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+.user-details .user-info-container {
+    position: relative;
+    height: 100px;
+}
+
+.user-info-container .user-action-container {
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 50px);
+}
+
+.user-rides li {
+    list-style: none;
+}
+
+.user-rides ul {
+    padding: 0;
+    position: relative;
+}
+
+.user-rides-container {
+    padding: 20px;
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+.user-rides .ride-container {
+    border: 1px solid #9e9e9e;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+.user-rides .ride-container:last-child {
+}

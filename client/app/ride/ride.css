@@ -1,0 +1,13 @@
+.ride-details-container {
+    padding: 20px;
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+.ride-container .trip-places-wrapper {
+    margin-bottom: 10px;
+}
+
+.ride-container .trip-time-wrapper {
+    margin-bottom: 10px;
+}

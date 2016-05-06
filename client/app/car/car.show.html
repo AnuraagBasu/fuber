@@ -1,0 +1,26 @@
+<div ng-show="car.carDetails" class="car-details">
+    <div class="car-info-container section">
+        <div class="car-driver-name">{{car.carDetails.driver.name}}</div>
+        <div class="car-pink" ng-if="car.carDetails.isPink">Pink Car</div>
+        <div class="car-on-ride" ng-if="car.carDetails.onRide"></div>
+
+        <div class="action-btn-container">
+            <button class="btn btn-default action-btn" ng-if="car.carDetails.active"
+                    ng-click="car.deactivateCar()">De-Activate</button>
+            <a class="btn btn-default action-btn"
+               ui-sref="car.rides({carId: car.carDetails._id})">My Rides</a>
+        </div>
+    </div>
+
+    <div class="activate-car-form section" ng-if="!car.carDetails.active">
+        <h5>Activate Car</h5>
+        <form ng-submit="form.$valid && car.activateCar(form)" novalidate class="form-horizontal" name="form">
+            <input name="name" class="form-control" ng-model="car.ride.location.name" placeholder="Location Name">
+            <input name="longitude" class="form-control" ng-model="car.ride.location.longitude" placeholder="Longitude">
+            <input name="latitude" class="form-control" ng-model="car.ride.location.latitude" placeholder="Latitude">
+            <div class="align-center">
+                <button type="submit" class="btn btn-default submit-btn">Activate</button>
+            </div>
+        </form>
+    </div>
+</div>

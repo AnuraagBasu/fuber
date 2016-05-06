@@ -1,0 +1,44 @@
+<div class="user-rides-container container">
+    <h3>My Rides</h3>
+    <div class="user-rides section" ng-if="userRides.showRides">
+        <ul>
+            <li class="ride-container" ng-repeat="ride in userRides.rides"
+                ng-class="{'ride-on-going': ride.ongoing, 'pink-car': ride.inPinkCar}">
+                <a ui-sref="ride({rideId: ride._id})">
+                    <div class="trip-places-wrapper">
+                        <div class="trip-start-place">
+                            <span class="title">From: </span>
+                            <span>{{ride.origin.name}}</span>
+                        </div>
+
+                        <div class="trip-end-place" ng-if="ride.destination">
+                            <span class="title">To: </span>
+                            <span>{{ride.destination.name}}</span>
+                        </div>
+                    </div>
+                    <div class="trip-time-wrapper">
+                        <span>on</span>
+                        <span class="trip-date">{{ride.tripDate}}</span>
+                        <span>at</span>
+                        <span class="trip-time">{{ride.tripTime}}</span>
+                    </div>
+                    <div class="trip-cost-wrapper" ng-if="!ride.ongoing">
+                        <span class="title">Trip Cost:</span>
+                        <i class="fa fa-rupee"></i>
+                        <span class="trip-cost">{{ride.tripCost}}</span>
+                    </div>
+                    <div class="trip-distance-wrapper" ng-if="!ride.ongoing">
+                        <span class="title">Distance Travelled:</span>
+                        <span class="trip-distance">{{ride.distanceCovered}}</span>
+                        <span>kms</span>
+                    </div>
+                    <div class="trip-with-pink-car" ng-if="ride.inPinkCar"></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="no-rides-section align-center" ng-if="userRides.noRides">
+        <div class="no-rides-message">No Rides Found</div>
+        <a class="btn btn-default action-btn" ui-sref="user.show({userId: userRides.userId})">Book Ride Now</a>
+    </div>
+</div>
