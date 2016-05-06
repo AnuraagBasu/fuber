@@ -12,7 +12,7 @@ module.exports = function (app) {
 
     app.use('/v1/ride', require('./api/ride'));
 
-    app.route("/*")
+    app.route("/|(:url(user|car|ride)/*)")
         .get(function (req, res) {
             res.sendfile(app.get('appPath') + '/pages/index.html');
         });
