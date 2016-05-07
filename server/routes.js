@@ -13,7 +13,7 @@ module.exports = function (app) {
 
     app.use('/v1/ride', require('./api/ride'));
 
-    app.route("/|(:url(user|car|ride))")
+    app.route("/(:url(user|car|ride))?")
         .get(function (req, res) {
             res.sendfile(app.get('appPath') + '/index.html');
         });
