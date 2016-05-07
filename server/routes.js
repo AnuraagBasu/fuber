@@ -15,7 +15,7 @@ module.exports = function (app) {
 
     app.use("/bower_components", express.static(__dirname + '/client/bower_components'));
 
-    app.route("/|(:url(user|car|ride)/*)")
+    app.route("/|(:url(user|car|ride))")
         .get(function (req, res) {
             res.sendfile(app.get('appPath') + '/pages/index.html');
         });
