@@ -98,6 +98,8 @@ angular.module("fuberApp")
                     });
 
                     self.showRides = true;
+                } else {
+                    self.noRides = true;
                 }
 
                 $scope.progressbar.complete();
