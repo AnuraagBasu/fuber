@@ -15,6 +15,6 @@ module.exports = function (app) {
 
     app.route("/|(:url(user|car|ride))")
         .get(function (req, res) {
-            res.sendfile(app.get('appPath') + '/pages/index.html');
+            res.sendfile(app.get('appPath') + '/index.html');
         });
 };
