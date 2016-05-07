@@ -13,12 +13,16 @@ var path = require('path');
 var config = require('./environment');
 
 module.exports = function (app) {
+    var env = app.get('env');
+
+    app.engine('html', require('ejs').renderFile);
+    app.set('view engine', 'html');
     app.use(compression());
-    app.use(bodyParser.urlencoded({extended: false}));
+    app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
     app.use(methodOverride());
     app.use(cookieParser());
-    app.use(morgan('dev'));
+
     app.use(express.static(path.join(config.root, 'client')));
     app.set('appPath', 'client');
     app.use(errorHandler());
