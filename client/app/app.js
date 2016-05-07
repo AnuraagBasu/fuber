@@ -3,7 +3,8 @@
  */
 
 angular.module("fuberApp", [
-    'ui.router'
+    'ui.router',
+    'ngProgress'
 ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         $urlRouterProvider

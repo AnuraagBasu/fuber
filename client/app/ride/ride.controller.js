@@ -3,12 +3,14 @@
  */
 
 angular.module("fuberApp")
-    .controller("RideCtrl", function ($scope, $http, $stateParams) {
+    .controller("RideCtrl", function ($scope, $http, $stateParams, ngProgressFactory) {
         var self = this;
         var rideId = $stateParams.rideId;
         self.showTripEndForm = false;
+        $scope.progressbar = ngProgressFactory.createInstance();
 
         function getRideDetails () {
+            $scope.progressbar.start();
             $http.get("/v1/ride?rideId=" + rideId).success(function (ride) {
                 if (!_.isEmpty(ride)) {
                     var rideDate = new Date(ride.startTime);
@@ -17,7 +19,9 @@ angular.module("fuberApp")
 
                     self.rideDetails = ride;
                 }
+                $scope.progressbar.complete();
             }).error(function () {
+                $scope.progressbar.complete();
                 console.log("Error fetching ride details");
             });
         }
@@ -28,6 +32,7 @@ angular.module("fuberApp")
                 return;
             }
 
+            $scope.progressbar.start();
             var dataToSend = {
                 rideId: rideId,
                 location: {
@@ -37,11 +42,13 @@ angular.module("fuberApp")
             };
 
             $http.post("/v1/ride/end", dataToSend).success(function (ride) {
+                $scope.progressbar.complete();
                 alert("The cost of the trip is: Rs. " + ride.tripCost);
 
                 self.showTripEndForm = false;
                 getRideDetails();
             }).error(function () {
+                $scope.progressbar.complete();
                 console.log("Error in trip end");
             });
         };

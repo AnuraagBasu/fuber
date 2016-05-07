@@ -3,19 +3,24 @@
  */
 
 angular.module("fuberApp")
-    .controller("UserCtrl", function ($scope, $http, $stateParams) {
+    .controller("UserCtrl", function ($scope, $http, $stateParams, ngProgressFactory) {
         var self = this;
         var userId = $stateParams.userId;
         self.showRides = false;
         self.rides = [];
         self.ride = {};
+        $scope.progressbar = ngProgressFactory.createInstance();
 
         function getUserDetails () {
+            $scope.progressbar.start();
             $http.get("/v1/user?userId=" + userId).success(function (user) {
                 if (!_.isEmpty(user)) {
                     self.userDetails = user;
                 }
+
+                $scope.progressbar.complete();
             }).error(function () {
+                $scope.progressbar.complete();
                 console.log("Couldn't get user details");
             });
         }
@@ -25,6 +30,8 @@ angular.module("fuberApp")
                 console.log("form is not valid");
                 return;
             }
+
+            $scope.progressbar.start();
 
             var dataToSend = {
                 userId: userId,
@@ -41,6 +48,7 @@ angular.module("fuberApp")
             console.log(dataToSend);
 
             $http.post("/v1/ride/book", dataToSend).success(function (data) {
+                $scope.progressbar.complete();
                 if (_.isEmpty(data)) {
                     alert("No cars are available right now. Try again in some time");
 
@@ -50,20 +58,23 @@ angular.module("fuberApp")
                     self.getRides();
                 }
             }).error(function () {
+                $scope.progressbar.complete();
                 console.log("Error in booking a ride");
             });
         };
 
         getUserDetails();
     })
-    .controller("UserRidesCtrl", function ($scope, $http, $stateParams) {
+    .controller("UserRidesCtrl", function ($scope, $http, $stateParams, ngProgressFactory) {
         var self = this;
         self.userId = $stateParams.userId;
         self.rides = [];
         self.showRides = false;
         self.noRides = false;
+        $scope.progressbar = ngProgressFactory.createInstance();
 
         function getRides () {
+            $scope.progressbar.start();
             self.rides = [];
             $http.get("/v1/ride/all?userId=" + self.userId).success(function (rides) {
                 if (rides && rides.length) {
@@ -79,7 +90,10 @@ angular.module("fuberApp")
                 } else {
                     self.noRides = true;
                 }
+
+                $scope.progressbar.complete();
             }).error(function () {
+                $scope.progressbar.complete();
                 console.log("Couldn't fetch rides of user");
             });
         }

@@ -3,19 +3,24 @@
  */
 
 angular.module("fuberApp")
-    .controller("CarCtrl", function ($scope, $http, $stateParams) {
+    .controller("CarCtrl", function ($scope, $http, $stateParams, ngProgressFactory) {
         var self = this;
         var carId = $stateParams.carId;
         self.showForm = false;
         self.showRides = false;
         self.rides = [];
+        $scope.progressbar = ngProgressFactory.createInstance();
 
         function getCarDetails () {
+            $scope.progressbar.start();
             $http.get("/v1/car?carId=" + carId).success(function (car) {
                 if (!_.isEmpty(car)) {
                     self.carDetails = car;
                 }
+
+                $scope.progressbar.complete();
             }).error(function () {
+                $scope.progressbar.complete();
                 console.log("Error getting car details");
             });
         }
@@ -26,6 +31,7 @@ angular.module("fuberApp")
                 return;
             }
 
+            $scope.progressbar.start();
             var dataToSend = {
                 licensePlate: self.carDetails.licensePlate,
                 location: {
@@ -35,6 +41,7 @@ angular.module("fuberApp")
             };
 
             $http.post("/v1/car/activate", dataToSend).success(function (data) {
+                $scope.progressbar.complete();
                 if (data) {
                     alert("Your car is activated now. Wait till you are assigned a ride");
 
@@ -44,12 +51,16 @@ angular.module("fuberApp")
                     alert("Couldn't process your request");
                 }
             }).error(function () {
+                $scope.progressbar.complete();
+
                 console.log("Error activating car");
             });
         };
 
         self.deactivateCar = function () {
+            $scope.progressbar.start();
             $http.post("/v1/car/deactivate", {licensePlate: self.carDetails.licensePlate}).success(function (data) {
+                $scope.progressbar.complete();
                 if (data) {
                     alert("Your car is de-activated now");
 
@@ -58,6 +69,7 @@ angular.module("fuberApp")
                     alert("Couldn't process your request");
                 }
             }).error(function () {
+                $scope.progressbar.complete();
                 console.log("Error in deactivating car");
             });
         };
@@ -65,7 +77,7 @@ angular.module("fuberApp")
         getCarDetails();
 
     })
-    .controller("CarRidesCtrl", function ($scope, $http, $stateParams) {
+    .controller("CarRidesCtrl", function ($scope, $http, $stateParams, ngProgressFactory) {
         var self = this;
         var carId = $stateParams.carId;
         self.rides = [];
@@ -73,6 +85,7 @@ angular.module("fuberApp")
         self.noRides = false;
 
         function getRides () {
+            $scope.progressbar = ngProgressFactory.createInstance();
             self.rides = [];
             $http.get("/v1/ride/all?carId=" + carId).success(function (rides) {
                 if (rides && rides.length) {
@@ -86,7 +99,10 @@ angular.module("fuberApp")
 
                     self.showRides = true;
                 }
+
+                $scope.progressbar.complete();
             }).error(function () {
+                $scope.progressbar.complete();
                 console.log("Couldn't fetch rides of car");
             });
         }
